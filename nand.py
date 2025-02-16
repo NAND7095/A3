@@ -413,7 +413,8 @@ def handle_bgmi3(message):
                 process = subprocess.run(full_command, shell=True)
 
 # Remove from ongoing attacks once the attack completes
-ongoing_attacks.pop(user_id)
+user_id = str(message.chat.id)  # User ID ko define karo
+ongoing_attacks.pop(user_id, None)  # None use karne se error nahi aayega agar ID nahi mile
 
 # Get attacker name
 user_info = message.from_user
