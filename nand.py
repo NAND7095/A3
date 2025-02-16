@@ -419,7 +419,8 @@ ongoing_attacks.pop(user_id, None)
 user_info = message.from_user
 attacker_name = user_info.username if user_info.username else user_info.first_name
 
-response = f"""
+if authorized:  # Make sure the user is authorized
+    response = f"""
 ╔════════════════════════════════════╗  
 ║ ✅🎯 **ATTACK SUCCESSFULLY COMPLETED!** 🚀🔥  ║  
 ╠════════════════════════════════════╣  
@@ -438,22 +439,20 @@ response = f"""
 
 💬 **FEEDBACK TIME!** 📨  
 📩 **DM @TMZEROO or share in @V2DDOS group!**  
-"""
+    """
 
-bot.reply_to(message, response, parse_mode='Markdown')# Notify the user that the attack is finished
-        else:
-            response = "𝐏𝐥𝐞𝐚𝐬𝐞 𝐩𝐫𝐨𝐯𝐢𝐝𝐞🚀: /bgmi3  <𝐇𝐨𝐬𝐭> <𝐏𝐨𝐫𝐭> <𝐓𝐢𝐦𝐞>"  # Updated command syntax 
-    else:
-        response = '''🚫 𝐔𝐧𝐚𝐮𝐭𝐡𝐨𝐫𝐢𝐬𝐡𝐞𝐝 𝐀𝐜𝐜𝐞𝐬𝐬! 🚫
+    bot.reply_to(message, response, parse_mode='Markdown')
 
-𝐎𝐨𝐩𝐬! 𝐈𝐭 𝐬𝐞𝐞𝐦𝐬 𝐥𝐢𝐤𝐞 𝐲𝐨𝐮 𝐝𝐨𝐧'𝐭 𝐡𝐚𝐯𝐞 𝐩𝐞𝐫𝐦𝐢𝐬𝐬𝐢𝐨𝐧 𝐭𝐨 𝐮𝐬𝐞 𝐭𝐡𝐞 /𝐚𝐭𝐭𝐚𝐜𝐤 𝐜𝐨𝐦𝐦𝐚𝐧𝐝. 𝐓𝐨 𝐠𝐚𝐢𝐧 𝐚𝐜𝐜𝐞𝐬𝐬 𝐚𝐧𝐝 𝐮𝐧𝐥𝐞𝐚𝐬𝐡 𝐭𝐡𝐞 𝐩𝐨𝐰𝐞𝐫 𝐨𝐟 𝐚𝐭𝐭𝐚𝐜𝐤𝐬, 𝐲𝐨𝐮 𝐜𝐚𝐧:
+else:
+    response = """🚫 𝐔𝐧𝐚𝐮𝐭𝐡𝐨𝐫𝐢𝐳𝐞𝐝 𝐀𝐜𝐜𝐞𝐬𝐬! 🚫
 
-👉 𝐂𝐨𝐧𝐭𝐚𝐜𝐭 𝐚𝐧 𝐀𝐝𝐦𝐢𝐧 𝐨𝐫 𝐭𝐡𝐞 𝐎𝐰𝐧𝐞𝐫-@TMZEROO 𝐟𝐨𝐫 𝐚𝐩𝐩𝐫𝐨𝐯𝐚𝐥.
-🌟 𝐁𝐞𝐜𝐨𝐦𝐞 𝐚 𝐩𝐫𝐨𝐮𝐝 𝐬𝐮𝐩𝐩𝐨𝐫𝐭𝐞𝐫 𝐚𝐧𝐝 𝐩𝐮𝐫𝐜𝐡𝐚𝐬𝐞 𝐚𝐩𝐩𝐫𝐨𝐯𝐚𝐥.
-💬 𝐂𝐡𝐚𝐭 𝐰𝐢𝐭𝐡 𝐚𝐧 𝐚𝐝𝐦𝐢𝐧 𝐧𝐨𝐰 𝐚𝐧𝐝 𝐥𝐞𝐯𝐞𝐥 𝐮𝐩 𝐲𝐨𝐮𝐫 𝐜𝐚𝐩𝐚𝐛𝐢𝐥𝐢𝐭𝐢𝐞𝐬!'''
+𝐎𝐨𝐩𝐬! 𝐘𝐨𝐮 𝐝𝐨𝐧'𝐭 𝐡𝐚𝐯𝐞 𝐩𝐞𝐫𝐦𝐢𝐬𝐬𝐢𝐨𝐧 𝐭𝐨 𝐮𝐬𝐞 𝐭𝐡𝐞 /𝐚𝐭𝐭𝐚𝐜𝐤 𝐜𝐨𝐦𝐦𝐚𝐧𝐝.
 
-    bot.reply_to(message, f"{Fore.CYAN + Style.BRIGHT}\n━━━━━━━━━━━━━━━━━━━━\n" + str( response) + "\n━━━━━━━━━━━━━━━━━━━━\n" + Style.RESET_ALL)
+👉 𝐂𝐨𝐧𝐭𝐚𝐜𝐭 𝐚𝐝𝐦𝐢𝐧 @TMZEROO 𝐟𝐨𝐫 𝐚𝐜𝐜𝐞𝐬𝐬.  
+🌟 𝐏𝐮𝐫𝐜𝐡𝐚𝐬𝐞 𝐚𝐩𝐩𝐫𝐨𝐯𝐚𝐥 𝐭𝐨 𝐮𝐬𝐞 𝐭𝐡𝐢𝐬 𝐜𝐨𝐦𝐦𝐚𝐧𝐝.  
+💬 𝐂𝐡𝐚𝐭 𝐰𝐢𝐭𝐡 𝐚𝐝𝐦𝐢𝐧 𝐧𝐨𝐰 𝐚𝐧𝐝 𝐥𝐞𝐯𝐞𝐥 𝐮𝐩!"""
 
+    bot.reply_to(message, response, parse_mode="Markdown")
 
 # Add /mylogs command to display logs recorded for bgmi3 and website commands
 @bot.message_handler(commands=['mylogs'])
