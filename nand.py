@@ -601,7 +601,7 @@ def broadcast_message(message):
                     try:
                         bot.send_message(user_id, message_to_broadcast)
                     except Exception as e:
-                        print(Fore.GREEN + Style.BRIGHT + str(f"Failed to send broadcast message to user {user_id}: {str(e) + Style.RESET_ALL)}") + Style.RESET_ALL)
+                        print(Fore.GREEN + Style.BRIGHT + f"Failed to send broadcast message to user {user_id}: {str(e)}" + Style.RESET_ALL)
             response = "Broadcast Message Sent Successfully To All Users 👍."
         else:
             response = "🤖 Please Provide A Message To Broadcast."
