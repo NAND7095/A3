@@ -112,7 +112,7 @@ allowed_user_ids = read_users() + ["1786683163", "5894848388", "-1002182851898",
 
 # Function to log command to the file
 def log_command(user_id, target, port, time):
-    admin_id = ["1786683163", "5894848388"] 
+    admin_id = ["1786683163"] 
     user_info = bot.get_chat(user_id)
     if user_info.username:
         username = "@" + user_info.username
@@ -413,7 +413,7 @@ def handle_bgmi3(message):
                 process = subprocess.run(full_command, shell=True)
 
 # Remove from ongoing attacks once the attack completes
-ongoing_attacks.pop(user_id, None)
+ongoing_attacks.pop(user_id)
 
 # Get attacker name
 user_info = message.from_user
